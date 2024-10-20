@@ -88,3 +88,83 @@ def universities_csv(data):
     universities = pd.DataFrame(universities)
     universities.to_csv('universties.csv')
     print("csv file created")
+
+def adoptions_csv(data):
+
+    adoptions = []
+    for i in data:
+        for j in i['adoptions']:
+            adoptions.append({
+                "Adoption ID": i['id'],
+                "ID": j['id'],
+                "Date": j['date'],
+                "Quantity ": j['quantity'],
+                "Book ID": j['book']['id'],
+                "isbn10": j['book']['isbn10'],
+                "isbn13": j['book']['isbn13'],
+                "title": j['book']['title'],
+                "Category": j['book']['category']
+            })
+
+    adoptions = pd.DataFrame(adoptions)
+    adoptions.to_csv('adoptions.csv')
+    print("csv file created")
+
+
+def messages_csv(data):
+
+    messages = []
+    for i in data:
+        for j in i['messages']:
+            messages.append({
+                "Adoption ID": j['id'],
+                "ID": j['id'],
+                "Date": j['date'],
+                "Content": j['content'],
+                "Category": j['category']
+            })
+
+    messages = pd.DataFrame(messages)
+    messages.to_csv('messages.csv')
+    print("csv file created")
+
+def universities_state(data, state):
+
+    universities = []
+    for i in data:
+        if i['university']['state'] == state:
+            universities.append(i['university']['name'])
+
+    print(f"Universities in {state} :")
+    for i in universities:
+        print(i)
+
+
+def books_category(data):
+
+    categories = []
+    for i in data:
+        for j in i['adoptions']:
+            if j['book']['category'] in categories:
+                continue
+            else:
+                categories.append(j['book']['category'])
+    print("Categories:")
+
+    for i in categories:
+        print(i)
+    user_choice = input("Enter the category you want: ")
+
+    book_titles = []
+    for i in data:
+        for j in i['adoptions']:
+            if j['book']['category'] == user_choice:
+                book_titles.append(j['book']['title'])
+
+    with open(f"{user_choice}.txt", 'w') as text_file:
+        for i in book_titles:
+            text_file.write(f"{i}\n")
+    print(f"Books have been saved to {user_choice}.txt")
+
+
+books_category(json_data)
