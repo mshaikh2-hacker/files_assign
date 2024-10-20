@@ -35,3 +35,56 @@ def contacts_csv(data):
     contacts = pd.DataFrame(contacts)
     contacts.to_csv('contacts.csv')
     print("csv file created")
+
+def universities_csv(data):
+
+    universities = []
+    for i in data:
+            if 'address' not in i['university']:
+                universities.append({
+                "Adoption ID": i['id'],
+                "University ID": i['university']['id'],
+                "Name": i['university']['name'],
+                "Address": "NA",
+                "City": i['university']['city'],
+                "State": i['university']['state'],
+                "Website": i['university']["website"],
+                "ZIP": i['university']['zip'],
+                "Longitude": i['university']['longitude'],
+                "Latitude": i['university']['latitude'],
+                "Classification": i['university']['classification']
+                })
+
+            elif 'website' not in i['university']:
+                universities.append({
+                "Adoption ID": i['id'],
+                "University ID": i['university']['id'],
+                "Name": i['university']['name'],
+                "Address": i['university']['address'],
+                "City": i['university']['city'],
+                "State": i['university']['state'],
+                "Website": "NA",
+                "ZIP": i['university']['zip'],
+                "Longitude": i['university']['longitude'],
+                "Latitude": i['university']['latitude'],
+                "Classification": i['university']['classification']
+                })
+
+            else:
+             universities.append({
+                "Adoption ID": i['id'],
+                "University ID": i['university']['id'],
+                "Name": i['university']['name'],
+                "Address": i['university']['address'],
+                "City": i['university']['city'],
+                "State": i['university']['state'],
+                "Website": i['university']["website"],
+                "ZIP": i['university']['zip'],
+                "Longitude": i['university']['longitude'],
+                "Latitude": i['university']['latitude'],
+                "Classification": i['university']['classification']
+             })
+
+    universities = pd.DataFrame(universities)
+    universities.to_csv('universties.csv')
+    print("csv file created")
