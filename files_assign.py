@@ -36,17 +36,6 @@ def contacts_csv(data):
     contacts.to_csv('contacts.csv')
     print("csv file created")
 
-def list_universities_by_state(data, state_name):
-    universities = []
-    for record in data:
-        if record['university']['state'] == state_name:
-            universities.append(record['university']['name'])
-    if universities:
-        print("Universities in",state_name,":")
-        for uni in universities:
-            print(uni)
-    else:
-        print("No universities found in",state_name)
 
 def universities_csv(data):
 
